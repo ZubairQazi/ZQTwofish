@@ -1,0 +1,13 @@
+public class Recieve implements Interface {
+	@Override
+	public int[][] Decrypt() {
+		return null;
+	}
+
+	@Override
+	public int[][] Decrypt() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

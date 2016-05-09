@@ -1,0 +1,16 @@
+public class Transmit {
+	private static final int[][] MDS = new int[4][256];
+	private String sentence;
+	private byte[] value;
+
+	public Transmit(String key) {
+		sentence = key;
+		value = key.getBytes();
+	}
+
+	public int[][] Encrypt(int k1, int k2, int k3, int k4) {
+
+		return null;
+
+	}
+}

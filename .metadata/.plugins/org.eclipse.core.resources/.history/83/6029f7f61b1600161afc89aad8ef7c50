@@ -1,0 +1,13 @@
+public class Transmit {
+	private static final int[][] MDS = new int[4][256];
+
+	public Transmit() {
+		
+	}
+
+	public int[][] Encrypt(int k1, int k2, int k3, int k4) {
+		
+		return null;
+
+	}
+}

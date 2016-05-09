@@ -1,6 +1,19 @@
-public class Transmit {
-	public int[][] Encrypt() {
-		return null;
+public class Transmit implements Encrypt {
+	private static final int[][] MDS = new int[4][256];
+	private String sentence;
+	private byte[] value;
+	private static final int MAX_ROUNDS = 16;
+	private static final char[] HEX_DIGITS = { '0', '1', '2', '3', '4', '5',
+			'6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
+	public Transmit(String key) {
+		sentence = key;
+		value = key.getBytes();
 	}
+
+	public int[][] Encrypt() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
