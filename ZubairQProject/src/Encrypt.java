@@ -1,3 +1,4 @@
 public interface Encrypt {
-	public int[][] Encrypt();
+	public int[] Encrypt();
+
 }

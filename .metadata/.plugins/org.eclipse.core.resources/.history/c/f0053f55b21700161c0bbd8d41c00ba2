@@ -1,0 +1,14 @@
+public class Transmit implements Encrypt {
+	private int[] key = {0x00000000, 0x00000000, 0x00000000, 0x00000000 };
+	
+	public Transmit(){
+		
+	}
+	
+	@Override
+	public int[][] Encrypt(String sentence, String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

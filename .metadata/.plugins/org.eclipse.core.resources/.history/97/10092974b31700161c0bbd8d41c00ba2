@@ -1,0 +1,4 @@
+public interface Encrypt {
+	public int[]Encrypt(String sentence, String key);
+
+}

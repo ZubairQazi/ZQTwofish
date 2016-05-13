@@ -1,8 +1,0 @@
-public class Transmit {
-	private String sentence;
-
-	public int[][] Encrypt(int k1, int k2, int k3, int k4) {
-		return null;
-
-	}
-}

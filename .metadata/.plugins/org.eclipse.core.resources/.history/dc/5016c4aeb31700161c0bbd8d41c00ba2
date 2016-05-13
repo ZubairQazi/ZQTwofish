@@ -1,0 +1,21 @@
+public class Transmit implements Encrypt {
+	private int[] key = { 0x00000000, 0x00000000, 0x00000000, 0x00000000 };
+	private int[] plainText = { 0x55555555, 0x55555555, 0x55555555, 0x55555555 };
+	private int[] plainText = { 0x55555555, 0x55555555, 0x55555555, 0x55555555 };
+
+	public Transmit() {
+
+	}
+
+	@Override
+	public int[] Encrypt() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int[][] sBox() {
+		return null;
+
+	}
+
+}
