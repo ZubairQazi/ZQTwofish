@@ -20,8 +20,6 @@ public class Transmit implements Encrypt {
 		C = q0(val);
 		D = q1(val);
 
-		int endResult = (A << 24) | (B << 16) | (C << 8) | D;
-
 		return 0;
 	}
 
@@ -46,7 +44,7 @@ public class Transmit implements Encrypt {
 		A3 = t2[A3];
 		int B3 = qFunction(A2, B2);
 		B3 = t3[B3];
-		int endResult = (A3 << 4) | B3;
+		int endResult = (A3 << 4)| B3;
 
 		return endResult;
 

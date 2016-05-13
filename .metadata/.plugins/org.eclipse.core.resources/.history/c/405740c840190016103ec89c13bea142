@@ -13,18 +13,6 @@ public class Transmit implements Encrypt {
 		return cipherText;
 	}
 
-	public int allSbox(int val) {
-		int A, B, C, D;
-		A = q0(val);
-		B = q1(val);
-		C = q0(val);
-		D = q1(val);
-
-		int endResult = (A << 24) | (B << 16) | (C << 8) | D;
-
-		return 0;
-	}
-
 	public static int q0(int val) {
 		int A = (val & 0xF0) >> 4;
 		int B = val & 0x0F;
@@ -46,7 +34,7 @@ public class Transmit implements Encrypt {
 		A3 = t2[A3];
 		int B3 = qFunction(A2, B2);
 		B3 = t3[B3];
-		int endResult = (A3 << 4) | B3;
+		int endResult = (A3 & 0xE0) | (B3 & 0x1F);
 
 		return endResult;
 
