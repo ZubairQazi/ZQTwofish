@@ -13,7 +13,7 @@ public class Transmit implements Encrypt {
 		return cipherText;
 	}
 
-	public int allSboxToMDS(int val) {
+	public int allSbox(int val) {
 		int A, B, C, D;
 		A = q0(val);
 		B = q1(val);
