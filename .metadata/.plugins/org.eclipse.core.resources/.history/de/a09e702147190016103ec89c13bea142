@@ -12,6 +12,7 @@ public class Transmit implements Encrypt {
 		// TODO Auto-generated method stub
 		return cipherText;
 	}
+	
 
 	public int allSbox(int val) {
 		int A, B, C, D;
@@ -23,6 +24,7 @@ public class Transmit implements Encrypt {
 		int endResult = (A << 24) | (B << 16) | (C << 8) | D;
 		int S0 = 0x17A019B9;
 		int testResult = endResult ^ S0;
+		
 
 		return 0;
 	}

@@ -21,8 +21,6 @@ public class Transmit implements Encrypt {
 		D = q1(val);
 
 		int endResult = (A << 24) | (B << 16) | (C << 8) | D;
-		int S0 = 0x17A019B9;
-		int testResult = endResult ^ S0;
 
 		return 0;
 	}
