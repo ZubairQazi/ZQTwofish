@@ -1,7 +1,7 @@
 public class Transmit implements Encrypt {
 	private int[] key = { 0x00000000, 0x00000000, 0x00000000, 0x00000000 };
 	private int[] plainText = { 0x55555555, 0x55555555, 0x55555555, 0x55555555 };
-	private int[] cipherText = { 0x55555555, 0x55555555, 0x55555555, 0x55555555 };
+	private int[] cipherText = { 0x00000000, 0x00000000, 0x00000000, 0x00000000 };
 	private static final int[][] MDS = new int[4][256];
 	private static final int GF256_FDBK = 0x169;
 	private static final int GF256_FDBK_2 = 0x169 / 2;
@@ -137,23 +137,128 @@ public class Transmit implements Encrypt {
 					(byte) 0x25, (byte) 0x86, (byte) 0x56, (byte) 0x55,
 					(byte) 0x09, (byte) 0xBE, (byte) 0x91 } };
 
-	public Transmit() {
-
-	}
-
 	@Override
 	public int[] Encrypt() {
-		// TODO Auto-generated method stub
+		// far right and left of block diagram
+
+		int some = plainText[0] ^ key[0];
+		int other = plainText[0] ^ key[0];
+		int someother = 0;
+		int othersome = 0;
+		some = FunctionF1(some, other);
+		other = FunctionF2(some, other);
+
+		someother = (plainText[2] ^ some) >>> 1;
+		othersome = ((plainText[3] ^ key[3]) >>> 1) ^ other;
+
+		cipherText[0] = some;
+		cipherText[1] = other;
+		cipherText[2] = someother;
+		cipherText[3] = othersome;
+
 		return cipherText;
 	}
 
-	public static int MDStoPHT1(int val) {
+	public static int FunctionF1(int val, int val2) {
+		int main1 = allSboxToMDS(val);
+		int rotate = Integer.rotateLeft(val2, 8);
+		int main2 = allSboxToMDS(rotate);
 
-		return 0;
+		int main3 = PHTFunction1(val, val2);
+		int main4 = PHTFunction2(val, val2);
+
+		return main3;
 
 	}
 
-	public int allSboxToMDS(int val) {
+	public static int FunctionF2(int val, int val2) {
+		int main1 = allSboxToMDS(val);
+		int rotate = Integer.rotateLeft(val2, 8);
+		int main2 = allSboxToMDS(rotate);
+
+		int main3 = PHTFunction1(val, val2);
+		int main4 = PHTFunction2(val, val2);
+
+		return main4;
+
+	}
+
+	public static int PHTFunction1(int val, int val2) {
+		// int A = val & 0xFFFF, B = (val >> 16) & 0xFFFF;
+		// int A2 = val2 & 0xFFFF, B2 = (val2 >> 16) & 0xFFFF;
+
+		int Atest = MDStoPHT1(val, val2);
+		int Btest = MDStoPHT2(val, val2);
+
+		int test = Atest + Btest;
+
+		int Ctest = MDStoPHT1(val2, test);
+		int Dtest = MDStoPHT2(val2, test);
+
+		int test2 = Ctest + Dtest;
+
+		int subKey1 = 0x00000000;
+		int subKey2 = 0x00000000;
+
+		int Etest = MDStoPHT1(test, subKey1);
+		int Ftest = MDStoPHT2(test, subKey1);
+
+		int test3 = Etest + Ftest;
+
+		int Gtest = MDStoPHT1(test2, subKey2);
+		int Htest = MDStoPHT2(test2, subKey2);
+
+		int test4 = Gtest + Htest;
+
+		return test3;
+
+	}
+
+	public static int PHTFunction2(int val, int val2) {
+		// int A = val & 0xFFFF, B = (val >> 16) & 0xFFFF;
+		// int A2 = val2 & 0xFFFF, B2 = (val2 >> 16) & 0xFFFF;
+
+		int Atest = MDStoPHT1(val, val2);
+		int Btest = MDStoPHT2(val, val2);
+
+		int test = Atest + Btest;
+
+		int Ctest = MDStoPHT1(val2, test);
+		int Dtest = MDStoPHT2(val2, test);
+
+		int test2 = Ctest + Dtest;
+
+		int subKey1 = 0x00000000;
+		int subKey2 = 0x00000000;
+
+		int Etest = MDStoPHT1(test, subKey1);
+		int Ftest = MDStoPHT2(test, subKey1);
+
+		int test3 = Etest + Ftest;
+
+		int Gtest = MDStoPHT1(test2, subKey2);
+		int Htest = MDStoPHT2(test2, subKey2);
+
+		int test4 = Gtest + Htest;
+
+		return test4;
+
+	}
+
+	public static int MDStoPHT1(int val, int val2) {
+		int A = (int) (val + val2 % Math.pow(2, 32));
+
+		return A;
+
+	}
+
+	public static int MDStoPHT2(int val, int val2) {
+		int B = (int) (val + (2 * val2) % Math.pow(2, 32));
+		return B;
+
+	}
+
+	public static int allSboxToMDS(int val) {
 		int A, B, C, D;
 
 		A = (val >> 24) & 0xFF;
