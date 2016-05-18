@@ -142,19 +142,28 @@ public class Transmit implements Encrypt {
 		// far right and left of block diagram
 
 		int some = plainText[0] ^ key[0];
-		int other = plainText[0] ^ key[0];
+		int other = plainText[1] ^ key[1];
 		int someother = 0;
 		int othersome = 0;
 		some = FunctionF1(some, other);
 		other = FunctionF2(some, other);
 
-		someother = (plainText[2] ^ some) >>> 1;
-		othersome = ((plainText[3] ^ key[3]) >>> 1) ^ other;
+		someother = ((plainText[2] ^ key[2]) ^ some) >>> 1;
+		othersome = Integer.rotateLeft((plainText[3] ^ key[3]), 1) ^ other;
 
 		cipherText[0] = some;
 		cipherText[1] = other;
 		cipherText[2] = someother;
 		cipherText[3] = othersome;
+
+		int one = plainText[2] ^ key[0];
+		int two = plainText[3] ^ key[1];
+
+		one = FunctionF1(one, two);
+		two = FunctionF2(one, two);
+
+		cipherText[2] = one;
+		cipherText[3] = two;
 
 		return cipherText;
 	}
@@ -164,8 +173,8 @@ public class Transmit implements Encrypt {
 		int rotate = Integer.rotateLeft(val2, 8);
 		int main2 = allSboxToMDS(rotate);
 
-		int main3 = PHTFunction1(val, val2);
-		int main4 = PHTFunction2(val, val2);
+		int main3 = PHTFunction1(main1, main2);
+		int main4 = PHTFunction2(main1, main2);
 
 		return main3;
 
@@ -176,8 +185,8 @@ public class Transmit implements Encrypt {
 		int rotate = Integer.rotateLeft(val2, 8);
 		int main2 = allSboxToMDS(rotate);
 
-		int main3 = PHTFunction1(val, val2);
-		int main4 = PHTFunction2(val, val2);
+		int main3 = PHTFunction1(main1, main2);
+		int main4 = PHTFunction2(main1, main2);
 
 		return main4;
 
